@@ -22,6 +22,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'pratos',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
