@@ -71,7 +71,8 @@ DATABASES = {
         'NAME': 'deliciasdb',
         'USER': 'postgres',
         'PASSWORD': 'Bruno2022',
-        'HOST': 'localhost'
+        'HOST': 'localhost',
+        'PORT': '5433'
     }
 }
 
