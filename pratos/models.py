@@ -1,5 +1,6 @@
 from django.db import models
 from pessoas.models import Pessoa
+from datetime import datetime
 
 class Prato(models.Model):
     pessoa = models.ForeignKey(Pessoa, on_delete=models.CASCADE)
@@ -10,3 +11,4 @@ class Prato(models.Model):
     serve_ate = models.CharField(max_length=70)
     categoria = models.CharField(max_length=50)
     publicada = models.BooleanField(default=False)
+    data_criacao = models.DateTimeField(default=datetime.now())
