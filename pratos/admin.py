@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Pratos
+from .models import Prato
 
 class ListaPratos(admin.ModelAdmin):
     list_display = ('id', 'nome_prato', 'categoria')
@@ -8,4 +8,4 @@ class ListaPratos(admin.ModelAdmin):
     list_filter = ('categoria',)
     list_per_page = 5
 
-admin.site.register(Pratos, ListaPratos)
+admin.site.register(Prato, ListaPratos)

@@ -1,6 +1,8 @@
 from django.db import models
+from pessoas.models import Pessoa
 
-class Pratos(models.Model):
+class Prato(models.Model):
+    pessoa = models.ForeignKey(Pessoa, on_delete=models.CASCADE)
     nome_prato = models.CharField(max_length=70)
     principal = models.CharField(max_length=50)
     acompanhamento = models.TextField()
