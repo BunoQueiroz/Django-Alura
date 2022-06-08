@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 from .models import Prato
 
 def index(request):
-    pratos = Prato.objects.all()
+    pratos = Prato.objects.filter(publicada=True)
 
     dados = {
         'pratos': pratos

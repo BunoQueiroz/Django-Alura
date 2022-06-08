@@ -9,3 +9,4 @@ class Prato(models.Model):
     tempo_medio_preparo = models.IntegerField()
     serve_ate = models.CharField(max_length=70)
     categoria = models.CharField(max_length=50)
+    publicada = models.BooleanField(default=False)
