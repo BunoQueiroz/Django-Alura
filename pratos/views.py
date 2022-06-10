@@ -16,3 +16,6 @@ def pratos(request, pratos_id):
         'prato': prato
     }
     return render(request, 'pratos.html', prato_a_exibir)
+
+def buscar(request):
+    return render(request, 'buscar.html')
