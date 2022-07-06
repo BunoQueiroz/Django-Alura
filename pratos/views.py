@@ -8,7 +8,7 @@ def index(request):
         'pratos': pratos
     }
 
-    return render(request, 'index.html', dados)
+    return render(request, 'pratos/index.html', dados)
 
 def pratos(request, pratos_id):
     prato = get_object_or_404(Prato, pk=pratos_id)
@@ -17,7 +17,7 @@ def pratos(request, pratos_id):
         'prato': prato
     }
     
-    return render(request, 'pratos.html', prato_a_exibir)
+    return render(request, 'pratos/pratos.html', prato_a_exibir)
 
 def buscar(request):
     lista_pratos = Prato.objects.order_by('-id').filter(publicada=True)
@@ -31,4 +31,4 @@ def buscar(request):
         'pratos' : lista_pratos
     }
 
-    return render(request, 'buscar.html', dados)
+    return render(request, 'pratos/buscar.html', dados)
