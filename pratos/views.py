@@ -12,9 +12,11 @@ def index(request):
 
 def pratos(request, pratos_id):
     prato = get_object_or_404(Prato, pk=pratos_id)
+    
     prato_a_exibir = {
         'prato': prato
     }
+    
     return render(request, 'pratos.html', prato_a_exibir)
 
 def buscar(request):
