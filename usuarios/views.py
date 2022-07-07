@@ -5,8 +5,7 @@ def isEmpty(list_itens):
     for i in list_itens:
         if i.strip() == '':
             return True
-        else:
-            return False
+    return False
 
 def registration(request):
     if request.method == 'POST':
@@ -29,10 +28,21 @@ def registration(request):
         return render(request, 'users/registration.html')
 
 def login(request):
-    return render(request, 'users/login.html')
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+        data = [email, password]
+
+        if isEmpty(data) or not User.objects.filter(email=email, password=password).exists():
+            print("Havia valor vazio")
+            return render(request, 'users/login.html')
+        else:
+            return redirect('dashboard')
+    else:
+        return render(request, 'users/login.html')
 
 def logout(request):
     return render(request, template_name)
 
 def dashboard(request):
-    return render(request, template_name)
+    return render(request, 'users/dashboard.html')
