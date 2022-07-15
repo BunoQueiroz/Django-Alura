@@ -57,6 +57,7 @@
                                     {% if user.is_authenticated %}
                                         <li><a href="{% url 'index' %}">Início</a></li>
                                         <li><a href="{% url 'dashboard' %}">Minhas Preferêcias</a></li>
+                                        <li><a href="{% url 'cria_prato' %}">Criar Prato</a></li>
                                         <li><a href="{% url 'logout' %}">Logout</a></li>
                                     {% else %}
                                     <li><a href="{% url 'index' %}">Início</a></li>

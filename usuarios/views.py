@@ -54,3 +54,9 @@ def dashboard(request):
         return render(request, 'users/dashboard.html')
     else:
         return redirect('index')
+
+def cria_prato(request):
+    if request.user.authenticated:
+        return render(request, 'users/cria_prato.html')
+    else:
+        return redirect('index')
