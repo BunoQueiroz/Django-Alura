@@ -56,7 +56,27 @@ def dashboard(request):
         return redirect('index')
 
 def cria_prato(request):
-    if request.user.authenticated:
+    if request.user.is_authenticated:
+
+        if request.method == 'POST':
+            nome = request.POST['nome_prato']
+            prato_principal = request.POST['principal']
+            acompanhamento = request.POST['acompanhamento']
+            tempo_preparo = request.POST['tempo_preparo']
+            serve_ate = request.POST['serve_ate']
+            categoria = request.POST['categoria']
+            foto = request.FILES['foto_prato']
+
+            data = [nome, prato_principal, acompanhamento, tempo_preparo, serve_ate, categoria]
+
+            if isEmpty(data):
+                print('Há campo(s) vazio(s)')
+            else:
+                print(data)
+            return redirect('dashboard')
+
         return render(request, 'users/cria_prato.html')
     else:
         return redirect('index')
+    
+    
