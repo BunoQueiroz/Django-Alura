@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth
+from pratos.models import Prato
 
 def isEmpty(list_itens):
     for i in list_itens:
@@ -51,7 +52,13 @@ def logout(request):
 
 def dashboard(request):
     if request.user.is_authenticated:
-        return render(request, 'users/dashboard.html')
+        id = request.user.id
+        prato = Prato.objects.order_by('-id').filter(pessoa_id=id)
+        data = {
+            'pratos' : prato
+        }
+
+        return render(request, 'users/dashboard.html', data)
     else:
         return redirect('index')
 
@@ -72,7 +79,9 @@ def cria_prato(request):
             if isEmpty(data):
                 print('Há campo(s) vazio(s)')
             else:
-                print(data)
+                user = get_object_or_404(User, pk=request.user.id)
+                prato = Prato.objects.create(pessoa=user, nome_prato=nome, principal=prato_principal, acompanhamento=acompanhamento, tempo_medio_preparo=tempo_preparo, serve_ate=serve_ate, categoria=categoria, foto_prato=foto)
+                prato.save()
             return redirect('dashboard')
 
         return render(request, 'users/cria_prato.html')
