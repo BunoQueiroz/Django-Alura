@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
-from django.contrib import auth
+from django.contrib import auth, messages
 from pratos.models import Prato
 
 def isEmpty(list_itens):
@@ -19,12 +19,12 @@ def registration(request):
         data = [name, email, password, password2]
 
         if isEmpty(data) or password != password2 or User.objects.filter(email=email).exists():
+            messages.error(request, 'Não podem haver campos vazios!')
             return render(request, 'users/registration.html')
         else:
             user = User.objects.create_user(is_superuser=False, username=name, email=email, password=password)
             user.save()
-            
-            print(data)
+            messages.success(request, 'Cadastro realizado com sucesso')
             return redirect('login')
     else:
         return render(request, 'users/registration.html')
@@ -87,5 +87,4 @@ def cria_prato(request):
         return render(request, 'users/cria_prato.html')
     else:
         return redirect('index')
-    
     
