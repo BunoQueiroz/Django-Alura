@@ -34,13 +34,15 @@ def login(request):
         email = request.POST['email']
         password = request.POST['password']
         data = [email, password]
-        if isEmpty(data) or User.objects.filter(email=email, password=password).exists():
+        if isEmpty(data) or not User.objects.filter(email=email).exists():
+            messages.error(request, 'Algo deu errado')
             return render(request, 'users/login.html')
         else:
             name = User.objects.filter(email=email).values_list('username', flat=True).get()
             user = auth.authenticate(request, username=name, password=password)
             if user is not None:
                 auth.login(request, user)
+                messages.success(request, 'Login realizado com sucesso')
                 return redirect('dashboard')
     
     else:
@@ -88,3 +90,31 @@ def cria_prato(request):
     else:
         return redirect('index')
     
+def edita_prato(request, prato_id):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            prato_id = request.POST['prato_id']
+
+            p = Prato.objects.get(pk=prato_id)
+
+            p.nome_prato = request.POST['nome_prato']
+            p.principal = request.POST['principal']
+            p.acompanhamento = request.POST['acompanhamento']
+            p.tempo_preparo = request.POST['tempo_preparo']
+            p.serve_ate = request.POST['serve_ate']
+            p.categoria = request.POST['categoria']
+            
+            if 'foto_prato' in request.FILES:
+                p.foto_prato = request.FILES['foto_prato']
+            p.save()
+            messages.success(request, 'Deu certo')
+            return redirect('dashboard')
+
+        prato = get_object_or_404(klass=Prato, pk=prato_id)
+        data = {
+            'prato': prato
+        }
+        return render(request, 'users/editar_prato.html', data)
+    messages.error(request, 'Você não tem permissão de acesso sem estar logado')
+    return redirect('index')
+

@@ -18,6 +18,7 @@
                 <div class="col-12">
                     <div class="section-heading">
                         <h3>Olá {{ user.username }}</h3>
+                        {% include 'partials/_messages.html' %}
                     </div>
                 </div>
             </div>
@@ -39,6 +40,7 @@
                         <div class="receipe-content">
                             <a href="{% url 'pratos' prato.id %}">
                                 <h5>{{ prato.nome_prato }}</h5>
+                                <a class="btn btn-info" type="button" href="{% url 'edita_prato' prato.id %}">Editar</a>
                             </a>
                         </div>
                     </div>
