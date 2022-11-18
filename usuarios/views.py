@@ -118,3 +118,11 @@ def edita_prato(request, prato_id):
     messages.error(request, 'Você não tem permissão de acesso sem estar logado')
     return redirect('index')
 
+def deleta_prato(request, prato_id):
+    if request.user.is_authenticated:
+        prato = get_object_or_404(Prato, pk=prato_id)
+        prato.delete()
+        messages.success(request, 'Prato deletado com sucesso')
+        return redirect('dashboard')
+    messages.error(request, 'você não tem permissão de acesso à página requisitada')
+    return redirect('index')
