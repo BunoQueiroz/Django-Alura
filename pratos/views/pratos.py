@@ -1,11 +1,16 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from pratos.models import Prato
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 def index(request):
     pratos = Prato.objects.order_by('-data_criacao').filter(publicada=True)
 
+    paginator = Paginator(pratos, 3)
+    pagina_atual = request.GET.get('page')
+    pratos_pagina_atual = paginator.get_page(pagina_atual)
+    
     dados = {
-        'pratos': pratos
+        'pratos': pratos_pagina_atual
     }
 
     return render(request, 'pratos/index.html', dados)
