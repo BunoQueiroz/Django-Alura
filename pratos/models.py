@@ -12,7 +12,7 @@ class Prato(models.Model):
     categoria = models.CharField(max_length=50)
     publicada = models.BooleanField(default=False)
     data_criacao = models.DateTimeField(default=datetime.now())
-    foto_prato = models.ImageField(upload_to='fotos/%d/%m/%Y/', blank=True)
+    foto_prato = models.ImageField(upload_to='fotos/%Y/%m/%d/', blank=True)
 
     def __str__(self):
         return self.nome_prato
