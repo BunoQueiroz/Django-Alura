@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from pathlib import Path
-import os
+from django.contrib.messages import constants as messages
+import os, sys
 
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -129,8 +130,12 @@ MEDIA_URL = '/media/'
 
 # Messages
 
-from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.SUCCESS: 'success',
     messages.ERROR: 'danger',
 }
+
+# ROOT FILES
+
+PROJECT_ROOT = os.path.dirname(__file__)
+sys.path.insert(0, os.path.join(PROJECT_ROOT, '../apps'))
